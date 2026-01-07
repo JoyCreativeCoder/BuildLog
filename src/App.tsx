@@ -1,14 +1,14 @@
 import "./App.css";
-import Home from "./components/Home";
-import CreateLog from "./components/CreateLog";
-import LogDetails from "./components/LogDetails";
+import DashBoard from "./pages/Dashboard/Dashboard";
+import CreateLog from "./pages/Createlog/CreateLog";
+import LogDetails from "./pages/Details/LogDetails";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<DashBoard />} />
         <Route path="/create" element={<CreateLog />} />
         <Route path="/details" element={<LogDetails />} />
       </Routes>
