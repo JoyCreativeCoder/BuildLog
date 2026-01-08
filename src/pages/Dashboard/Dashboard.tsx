@@ -1,6 +1,8 @@
 import styles from "./Dashboard.module.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import TopBar from "../../components/TopBar/TopBar";
+import Filters from "../../components/FilterTabs/FilterTabs";
+import LogCard from "../../components/LogCard/LogCard";
 
 export default function Dashboard() {
   return (
@@ -32,8 +34,8 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          {/* Stats */}
-          {/* Filters */}
+          <Filters />
+          <LogCard />
           {/* Logs */}
         </main>
       </div>
