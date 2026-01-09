@@ -1,8 +1,9 @@
 .layout {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  grid-template-rows: auto 1fr;
-  min-height: 100vh;
+  grid-template-columns: 301px 1fr;
+  grid-template-rows: 70px 1fr;
+  height: 100vh;
+  overflow: hidden;
   background: #f9fafb;
 }
 
@@ -19,6 +20,8 @@
   grid-column: 2;
   grid-row: 2;
   padding: 32px;
+  overflow-y: auto;
+  height: calc(100vh - 70px);
 }
 
 .mainHeader {

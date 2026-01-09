@@ -1,7 +1,13 @@
 .sidebar {
   background: #ffffff;
-  border-bottom: 1px solid #2a3140;
+  border-right: 0.25px solid #2a3140;
   padding: 24px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  overflow-y: auto;
 }
 
 .colunm {
