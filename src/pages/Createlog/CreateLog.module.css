@@ -1,0 +1,212 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  flex-shrink: 0;
+  z-index: 20;
+}
+
+.logo {
+  margin: 0;
+}
+
+.profileContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.profileContainer button {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #4b5563;
+  border: none;
+  background: none;
+}
+
+.avatar {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  aspect-ratio: 1 / 1;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 2px #f3f4f6;
+  cursor: pointer;
+  background-color: #b3b3b3;
+}
+
+.container {
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 2rem;
+  padding-bottom: 6rem;
+}
+
+.contentNav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.contentNav a {
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 150ms ease-in-out;
+}
+
+.container:hover {
+  color: #2563eb;
+}
+
+.icon {
+  font-family: "Material Symbols Outlined", sans-serif;
+  font-size: 16px;
+}
+
+.icon {
+  font-family: "Material Symbols Outlined", sans-serif;
+  font-size: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.link {
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 150ms ease-in-out;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #2563eb;
+}
+
+.dark .link {
+  color: #9ca3af;
+}
+
+.text {
+  color: #111827;
+  font-weight: 500;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input {
+  width: 100%;
+  background-color: transparent;
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.01562em;
+  color: #111318;
+  border: none;
+  padding: 0 0;
+  transition: all 150ms ease-in-out;
+}
+
+.input::placeholder {
+  color: #d1d5db;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.metaData {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+.datePicker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 160px;
+}
+
+.datePicker label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.dateIcon {
+  position: absolute; /* absolute */
+  top: 0; /* inset-y-0 equivalent */
+  bottom: 0;
+  left: 0; /* left-0 */
+  display: flex; /* flex */
+  align-items: center; /* items-center */
+  padding-left: 0.75rem; /* pl-3 */
+  color: #6b7280; /* text-gray-500 */
+  pointer-events: none;
+}
+
+.dateInput {
+  display: block; /* block */
+  width: 100%; /* w-full */
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid #e5e7eb; /* border-gray-200 */
+  background-color: #ffffff; /* bg-white */
+  padding-left: 2.5rem; /* pl-10 */
+  padding-top: 0.5rem; /* py-2 */
+  padding-bottom: 0.5rem;
+  font-size: 0.875rem; /* text-sm */
+  color: #111827; /* text-gray-900 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* shadow-sm */
+  transition: all 0.2s ease-in-out; /* transition-all */
+  outline: none;
+}
+
+.calenderIcon {
+  font-family: "Material Symbols Outlined", sans-serif;
+  font-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.group {
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding-top: 3rem;
+    padding-bottom: 6rem;
+  }
+}

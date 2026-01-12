@@ -1,12 +1,13 @@
 .sidebar {
-  background: #ffffff;
-  border-right: 0.25px solid #2a3140;
-  padding: 24px;
+  background-color: #ffffff;
+  border-right: 1px solid #f0f2f4;
+  padding: 1.5rem;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  width: 260px;
+  width: 16.2rem;
+  flex-shrink: 0;
   overflow-y: auto;
 }
 
