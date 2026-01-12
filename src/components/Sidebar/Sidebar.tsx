@@ -1,7 +1,14 @@
 import { LayoutDashboard, Logs, Plus } from "lucide-react";
 import styles from "./Sidebar.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+
+  function handleCreate() {
+    navigate("/create");
+  }
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.colunm}>
@@ -18,7 +25,7 @@ export default function Sidebar() {
           <span>
             <Plus color="#ffffff" />
           </span>
-          <span> Add New Log</span>
+          <span onClick={handleCreate}> Add New Log</span>
         </button>
         <ul className={styles.navList}>
           <li className={styles.navItem}>
