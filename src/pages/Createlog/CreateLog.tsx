@@ -1,4 +1,12 @@
-import { ArrowLeft, Calendar } from "lucide-react";
+import {
+  ArrowLeft,
+  Calendar,
+  Database,
+  GraduationCap,
+  MonitorSmartphone,
+  SaveAll,
+  SquareFunction,
+} from "lucide-react";
 import styles from "./CreateLog.module.css";
 
 const CreateLog = () => {
@@ -38,16 +46,95 @@ const CreateLog = () => {
                 <div className={styles.group}>
                   <span className={styles.dateIcon}>
                     <span className={styles.calenderIcon}>
-                      <Calendar />
+                      <Calendar size={20} />
                     </span>
                   </span>
-                  <input type="date" value="" className={styles.dateInput} />
+                  <input
+                    type="date"
+                    value="2023-10-27"
+                    className={styles.dateInput}
+                  />
                 </div>
               </div>
+              <div className={styles.categoryContainer}>
+                <label>CATEGORY</label>
+                <div className={styles.categorySelector}>
+                  <label className={styles.pillWrapper}>
+                    <input
+                      type="radio"
+                      name="category"
+                      value="frontend"
+                      checked
+                    />
+                    <div className={styles.pill}>
+                      <span className="material-symbols-outlined">
+                        <MonitorSmartphone size={16} />
+                      </span>
+                      Frontend
+                    </div>
+                  </label>
+
+                  <label className={styles.pillWrapper}>
+                    <input type="radio" name="category" value="backend" />
+                    <div className={styles.pill}>
+                      <span className="material-symbols-outlined">
+                        <Database size={16} />
+                      </span>
+                      Backend
+                    </div>
+                  </label>
+
+                  <label className={styles.pillWrapper}>
+                    <input type="radio" name="category" value="dsa" />
+                    <div className={styles.pill}>
+                      <span className="material-symbols-outlined">
+                        <SquareFunction size={16} />
+                      </span>
+                      DSA
+                    </div>
+                  </label>
+
+                  <label className={styles.pillWrapper}>
+                    <input type="radio" name="category" value="learning" />
+                    <div className={styles.pill}>
+                      <span className="material-symbols-outlined">
+                        <GraduationCap size={16} />
+                      </span>
+                      Learning
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* //DESCRIPTION EDITOR */}
+            <div className={styles.descriptionContainer}>
+              <div className={styles.descriptionHeader}>
+                {" "}
+                <label htmlFor="">LOG DETAILS</label>
+              </div>
+              <textarea
+                placeholder="Describe your progress, challenges, and key learnings..."
+                className={styles.editor}
+              ></textarea>
             </div>
           </form>
         </div>
       </main>
+      <div className={styles.footer}>
+        <div className={styles.actionContainer}>
+          <div className={styles.autoSave}>Auto-saved at 10:42 PM</div>
+          <div className={styles.callToAction}>
+            <button className={styles.cancel}>Cancel</button>
+            <button className={styles.save}>
+              <span>
+                <SaveAll size={16} color="#ffffff" />
+              </span>
+              Save Log
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
