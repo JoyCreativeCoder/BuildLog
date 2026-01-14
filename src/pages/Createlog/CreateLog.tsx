@@ -123,7 +123,7 @@ const CreateLog = () => {
       </main>
       <div className={styles.footer}>
         <div className={styles.actionContainer}>
-          <div className={styles.autoSave}>Auto-saved at 10:42 PM</div>
+          <p className={styles.autoSave}>Auto-saved at 10:42 PM</p>
           <div className={styles.callToAction}>
             <button className={styles.cancel}>Cancel</button>
             <button className={styles.save}>
