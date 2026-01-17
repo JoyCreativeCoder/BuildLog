@@ -101,6 +101,9 @@
   gap: 0.25rem;
   transition: color 150ms ease-in-out;
   text-decoration: none;
+  border: none;
+  background: none;
+  font-family: inherit;
 }
 
 .link:hover {
@@ -166,14 +169,14 @@ form {
 }
 
 .dateIcon {
-  position: absolute; /* absolute */
-  top: 0; /* inset-y-0 equivalent */
+  position: absolute;
+  top: 0;
   bottom: 0;
-  left: 0; /* left-0 */
-  display: flex; /* flex */
-  align-items: center; /* items-center */
-  padding-left: 0.75rem; /* pl-3 */
-  color: #6b7280; /* text-gray-500 */
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+  color: #6b7280;
   pointer-events: none;
 }
 

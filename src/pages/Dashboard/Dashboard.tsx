@@ -3,11 +3,27 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import TopBar from "../../components/TopBar/TopBar";
 import Filters from "../../components/FilterTabs/FilterTabs";
 import LogCard from "../../components/LogCard/LogCard";
+import { useNavigate } from "react-router-dom";
 
-export default function Dashboard() {
+type Log = {
+  id: string;
+  title: string;
+  category: string;
+  date: string;
+  details: string;
+};
+
+type DashboardProps = {
+  logs: Log[];
+};
+
+export default function Dashboard({ logs }: DashboardProps) {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.layout}>
-      <Sidebar />
+      <Sidebar onCreateLog={() => navigate("/create")} />
+
       <TopBar />
       <div className={styles.main}>
         <main className={styles.mainContainer}>
@@ -35,8 +51,12 @@ export default function Dashboard() {
             </div>
           </div>
           <Filters />
-          <LogCard />
-          {/* Logs */}
+
+          {logs.length ? (
+            logs.map((log) => <LogCard key={log.id} log={log} />)
+          ) : (
+            <p>No logs yet. Click "Create Log" to add one!</p>
+          )}
         </main>
       </div>
     </div>

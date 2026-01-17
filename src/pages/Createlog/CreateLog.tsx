@@ -8,8 +8,53 @@ import {
   SquareFunction,
 } from "lucide-react";
 import styles from "./CreateLog.module.css";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const CreateLog = () => {
+type Log = {
+  id: string;
+  title: string;
+  category: string;
+  date: string;
+  details: string;
+};
+
+type CreateLogProps = {
+  onSave: (newLog: Log) => void;
+};
+const CreateLog = ({ onSave }: CreateLogProps) => {
+  const toDashBoard = useNavigate();
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [category, setCategory] = useState("Frontend");
+  const categories = ["Frontend", "Backend", "DSA", "Learning"];
+  const [title, setTitle] = useState("");
+  const [details, setDetails] = useState("");
+
+  const CATEGORY_ICONS = {
+    Frontend: MonitorSmartphone,
+    Backend: Database,
+    DSA: SquareFunction,
+    Learning: GraduationCap,
+  };
+
+  const handleSave = () => {
+    if (!title.trim() || !details.trim()) {
+      alert("Please fill in title and details");
+      return;
+    }
+
+    const newLog: Log = {
+      id: crypto.randomUUID(),
+      title,
+      category,
+      date,
+      details,
+    };
+    console.log(newLog);
+    onSave(newLog);
+    toDashBoard("/");
+  };
+
   return (
     <div>
       <header className={styles.nav}>
@@ -22,12 +67,12 @@ const CreateLog = () => {
       <main className={styles.container}>
         <div className={styles.content}>
           <nav className={styles.contentNav}>
-            <a href="#" className={styles.link}>
+            <button className={styles.link} onClick={() => toDashBoard("/")}>
               <span className={styles.icon}>
                 <ArrowLeft strokeWidth={1} />
               </span>
               Back to Logs
-            </a>
+            </button>
             <span>/</span>
             <span className={styles.text}>New Entry</span>
           </nav>
@@ -36,7 +81,9 @@ const CreateLog = () => {
               <input
                 type="text"
                 placeholder="What did you build today?"
+                value={title}
                 className={styles.input}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
 
@@ -51,7 +98,8 @@ const CreateLog = () => {
                   </span>
                   <input
                     type="date"
-                    value="2023-10-27"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                     className={styles.dateInput}
                   />
                 </div>
@@ -59,50 +107,26 @@ const CreateLog = () => {
               <div className={styles.categoryContainer}>
                 <label>CATEGORY</label>
                 <div className={styles.categorySelector}>
-                  <label className={styles.pillWrapper}>
-                    <input
-                      type="radio"
-                      name="category"
-                      value="frontend"
-                      checked
-                    />
-                    <div className={styles.pill}>
-                      <span className="material-symbols-outlined">
-                        <MonitorSmartphone size={16} />
-                      </span>
-                      Frontend
-                    </div>
-                  </label>
-
-                  <label className={styles.pillWrapper}>
-                    <input type="radio" name="category" value="backend" />
-                    <div className={styles.pill}>
-                      <span className="material-symbols-outlined">
-                        <Database size={16} />
-                      </span>
-                      Backend
-                    </div>
-                  </label>
-
-                  <label className={styles.pillWrapper}>
-                    <input type="radio" name="category" value="dsa" />
-                    <div className={styles.pill}>
-                      <span className="material-symbols-outlined">
-                        <SquareFunction size={16} />
-                      </span>
-                      DSA
-                    </div>
-                  </label>
-
-                  <label className={styles.pillWrapper}>
-                    <input type="radio" name="category" value="learning" />
-                    <div className={styles.pill}>
-                      <span className="material-symbols-outlined">
-                        <GraduationCap size={16} />
-                      </span>
-                      Learning
-                    </div>
-                  </label>
+                  {categories.map((cat) => {
+                    const Icon = CATEGORY_ICONS[cat];
+                    return (
+                      <label className={styles.pillWrapper}>
+                        <input
+                          type="radio"
+                          name="category"
+                          value={category}
+                          checked={category === cat}
+                          onChange={() => setCategory(cat)}
+                        />
+                        <div className={styles.pill}>
+                          <span className="material-symbols-outlined">
+                            {Icon && <Icon size={16} />}
+                          </span>
+                          {cat}
+                        </div>
+                      </label>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -116,6 +140,9 @@ const CreateLog = () => {
               <textarea
                 placeholder="Describe your progress, challenges, and key learnings..."
                 className={styles.editor}
+                onChange={(e) => {
+                  setDetails(e.target.value);
+                }}
               ></textarea>
             </div>
           </form>
@@ -126,7 +153,7 @@ const CreateLog = () => {
           <p className={styles.autoSave}>Auto-saved at 10:42 PM</p>
           <div className={styles.callToAction}>
             <button className={styles.cancel}>Cancel</button>
-            <button className={styles.save}>
+            <button className={styles.save} onClick={handleSave}>
               <span>
                 <SaveAll size={16} color="#ffffff" />
               </span>
