@@ -16,9 +16,7 @@ export default function TopBar() {
           </div>
         </div>
 
-        <div className={styles.right}>
-          <h5>Oct 26 2023</h5>
-        </div>
+        <div className={styles.right}></div>
       </div>
     </div>
   );

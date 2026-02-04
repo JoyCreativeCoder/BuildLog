@@ -4,6 +4,7 @@ import TopBar from "../../components/TopBar/TopBar";
 import Filters from "../../components/FilterTabs/FilterTabs";
 import LogCard from "../../components/LogCard/LogCard";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 type Log = {
   id: string;
