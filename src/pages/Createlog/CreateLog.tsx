@@ -37,22 +37,38 @@ const CreateLog = ({ onSave }: CreateLogProps) => {
     Learning: GraduationCap,
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!title.trim() || !details.trim()) {
       alert("Please fill in title and details");
       return;
     }
 
-    const newLog: Log = {
-      id: crypto.randomUUID(),
-      title,
-      category,
-      date,
-      details,
-    };
-    console.log(newLog);
-    onSave(newLog);
-    toDashBoard("/");
+    try {
+      const response = await fetch("http://localhost:5000/api/logs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          details,
+          category,
+          date,
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+        onSave(data);
+        toDashBoard("/");
+      } else {
+        alert("Error saving log: " + data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to save log. Please try again.");
+    }
   };
 
   return (

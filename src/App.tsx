@@ -3,7 +3,7 @@ import DashBoard from "./pages/Dashboard/Dashboard";
 import CreateLog from "./pages/Createlog/CreateLog";
 import LogDetails from "./pages/Details/LogDetails";
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Log = {
   id: string;
@@ -18,6 +18,29 @@ function App() {
   const addLog = (newLog: Log) => {
     setLogs((prev: Log[]) => [newLog, ...prev]);
   };
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLog = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/logs");
+        if (!response.ok) {
+          throw new Error("failed to fetch logs");
+        }
+        const data = await response.json();
+        console.log(data);
+        setLogs(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching logs", error);
+        setLoading(false);
+      }
+    };
+    fetchLog();
+  }, []);
+
+  if (loading) return <div>Loading logs...</div>;
+
   return (
     <>
       <Routes>
