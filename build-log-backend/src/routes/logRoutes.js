@@ -1,16 +1,21 @@
 import express from "express";
 import {
   createLog,
-  getLogs,
-  deleteLog,
+  getAllLogs,
+  getLogById,
   updateLog,
+  deleteLog,
+  getLogsCount,
 } from "../controllers/logController.js";
 
 const router = express.Router();
 
-router.get("/", getLogs);
+router.get("/stats/count", getLogsCount);
+
+router.get("/", getAllLogs);
+router.get("/:id", getLogById);
 router.post("/", createLog);
-router.delete("/:id", deleteLog);
 router.put("/:id", updateLog);
+router.delete("/:id", deleteLog);
 
 export default router;

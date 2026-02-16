@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 type Log = {
-  id: string;
+  _id: string;
   title: string;
   category: string;
   date: string;
@@ -29,7 +29,7 @@ function App() {
         }
         const data = await response.json();
         console.log(data);
-        setLogs(data);
+        setLogs(data.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching logs", error);
@@ -44,7 +44,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<DashBoard logs={logs} />} />
+        <Route path="/" element={<DashBoard logs={logs} setLogs={setLogs} />} />
         <Route path="/create" element={<CreateLog onSave={addLog} />} />
         <Route path="/details" element={<LogDetails />} />
       </Routes>
