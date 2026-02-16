@@ -4,10 +4,9 @@ import TopBar from "../../components/TopBar/TopBar";
 import Filters from "../../components/FilterTabs/FilterTabs";
 import LogCard from "../../components/LogCard/LogCard";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 type Log = {
-  id: string;
+  _id: string;
   title: string;
   category: string;
   date: string;
@@ -16,9 +15,10 @@ type Log = {
 
 type DashboardProps = {
   logs: Log[];
+  setLogs: React.Dispatch<React.SetStateAction<Log[]>>;
 };
 
-export default function Dashboard({ logs }: DashboardProps) {
+export default function Dashboard({ logs, setLogs }: DashboardProps) {
   const navigate = useNavigate();
 
   return (
@@ -54,7 +54,9 @@ export default function Dashboard({ logs }: DashboardProps) {
           <Filters />
 
           {logs.length ? (
-            logs.map((log) => <LogCard key={log.id} log={log} />)
+            logs.map((log) => (
+              <LogCard key={log._id} log={log} setLogs={setLogs} />
+            ))
           ) : (
             <p>No logs yet. Click "Create Log" to add one!</p>
           )}
