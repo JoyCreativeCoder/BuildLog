@@ -8,27 +8,41 @@ import {
   SquareFunction,
 } from "lucide-react";
 import styles from "./CreateLog.module.css";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 type Log = {
-  id: string;
+  _id: string;
   title: string;
+  details: string;
   category: string;
   date: string;
-  details: string;
 };
 
 type CreateLogProps = {
   onSave: (newLog: Log) => void;
+  onUpdate: (newLog: Log) => void;
 };
-const CreateLog = ({ onSave }: CreateLogProps) => {
+
+const CreateLog = ({ onSave, onUpdate }: CreateLogProps) => {
   const toDashBoard = useNavigate();
+  const location = useLocation();
+  const logToEdit = location.state?.log;
+  const isEditMode = !!logToEdit;
+
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [category, setCategory] = useState("Frontend");
   const categories = ["Frontend", "Backend", "DSA", "Learning"];
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
+
+  useEffect(() => {
+    if (logToEdit) {
+      setTitle(logToEdit.title);
+      setDetails(logToEdit.details);
+      setCategory(logToEdit.category);
+    }
+  }, [logToEdit]);
 
   const CATEGORY_ICONS = {
     Frontend: MonitorSmartphone,
@@ -43,27 +57,51 @@ const CreateLog = ({ onSave }: CreateLogProps) => {
       return;
     }
 
-    try {
-      const response = await fetch("http://localhost:5000/api/logs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          details,
-          category,
-          date,
-        }),
-      });
+    const logData = {
+      title,
+      details,
+      category,
+      date: new Date().toISOString(),
+    };
 
-      const data = await response.json();
-      if (response.ok) {
-        console.log(data);
-        onSave(data);
-        toDashBoard("/");
+    try {
+      if (isEditMode) {
+        const response = await fetch(
+          `http://localhost:5000/api/logs/${logToEdit._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(logData),
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to update log");
+        }
+
+        const result = await response.json();
+        if (result.success) {
+          onUpdate(result.data);
+          toDashBoard("/");
+        }
       } else {
-        alert("Error saving log: " + data.message);
+        const response = await fetch("http://localhost:5000/api/logs", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(logData),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          console.log(data);
+          onSave(data.data);
+          toDashBoard("/");
+        } else {
+          alert("Error saving log: " + data.message);
+        }
       }
     } catch (error) {
       console.error("Error:", error);
@@ -124,7 +162,8 @@ const CreateLog = ({ onSave }: CreateLogProps) => {
                 <label>CATEGORY</label>
                 <div className={styles.categorySelector}>
                   {categories.map((cat) => {
-                    const Icon = CATEGORY_ICONS[cat];
+                    const Icon =
+                      CATEGORY_ICONS[category as keyof typeof CATEGORY_ICONS];
                     return (
                       <label className={styles.pillWrapper}>
                         <input
@@ -156,6 +195,7 @@ const CreateLog = ({ onSave }: CreateLogProps) => {
               <textarea
                 placeholder="Describe your progress, challenges, and key learnings..."
                 className={styles.editor}
+                value={details}
                 onChange={(e) => {
                   setDetails(e.target.value);
                 }}

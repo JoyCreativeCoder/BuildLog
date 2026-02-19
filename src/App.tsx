@@ -18,6 +18,10 @@ function App() {
   const addLog = (newLog: Log) => {
     setLogs((prev: Log[]) => [newLog, ...prev]);
   };
+
+  const updateLog = (updatedLog: Log) => {
+    setLogs(logs.map((log) => (log._id === updatedLog._id ? updatedLog : log)));
+  };
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -45,7 +49,10 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<DashBoard logs={logs} setLogs={setLogs} />} />
-        <Route path="/create" element={<CreateLog onSave={addLog} />} />
+        <Route
+          path="/create"
+          element={<CreateLog onSave={addLog} onUpdate={updateLog} />}
+        />
         <Route path="/details" element={<LogDetails />} />
       </Routes>
     </>
