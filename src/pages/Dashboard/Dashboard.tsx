@@ -52,7 +52,6 @@ export default function Dashboard({ logs, setLogs }: DashboardProps) {
             </div>
           </div>
           <Filters />
-
           {logs.length ? (
             logs.map((log) => (
               <LogCard key={log._id} log={log} setLogs={setLogs} />
